@@ -11,7 +11,7 @@ namespace PingPongTask.Injectors
     {
         [SerializeField] private GameObject ball;
 
-        private void Start()
+        private void Awake()
         {
             var ballComponent = ball.GetComponent<Ball.Ball>();
             ballComponent.ballMovement = new BallMovement(ballComponent.speed, new RandomUnityService());

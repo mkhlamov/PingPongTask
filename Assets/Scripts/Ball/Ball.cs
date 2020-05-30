@@ -19,12 +19,28 @@ namespace PingPongTask.Ball
 
         private Rigidbody2D _rb;
 
+        #region Monobehavoiur methods
+        
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             startPosition = transform.position;
         }
 
+        private void Start()
+        {
+            Restart();
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            Restart();
+        }
+
+        #endregion
+
+        #region Public methods
+        
         public void Restart()
         {
             ResetPosition();
@@ -37,5 +53,7 @@ namespace PingPongTask.Ball
             _rb.angularVelocity = 0;
             transform.position = startPosition;
         }
+        
+        #endregion
     }
 }

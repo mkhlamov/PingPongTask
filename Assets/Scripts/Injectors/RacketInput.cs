@@ -13,7 +13,7 @@ namespace PingPongTask.Injectors
         [SerializeField] private List<GameObject> rackets;
         [SerializeField] private IInputService inputService;
 
-        private void Start()
+        private void Awake()
         {
 #if UNITY_EDITOR
             inputService = new KeyboardInput();
