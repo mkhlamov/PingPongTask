@@ -17,6 +17,8 @@ namespace PingPongTask.Injectors
         {
 #if UNITY_EDITOR
             inputService = new KeyboardInput();
+#elif (UNITY_ANDROID || UNITY_IOS)
+            inputService = new MobileInput();
 #endif
             var components = new List<MonoBehaviour>();
             foreach (var racket in rackets)

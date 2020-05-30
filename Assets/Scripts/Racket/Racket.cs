@@ -10,6 +10,7 @@ namespace PingPongTask.Racket
         public IInputService InputService { get; set; }
 
         public float Speed;
+        [SerializeField] private float mobileInputMultiplier = 10; 
 
         private RacketMovement _racketMovement;
 
@@ -22,8 +23,12 @@ namespace PingPongTask.Racket
 
         private void Update()
         {
+            var axisValue = InputService.GetAxis("Horizontal");
+#if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
+            axisValue *= mobileInputMultiplier;
+#endif
             transform.position = _racketMovement.CalculateMove(transform.position, 
-                InputService.GetAxis("Horizontal"),
+                axisValue,
                 InputService.GetDeltaTime());
         }
     }
