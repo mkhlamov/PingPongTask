@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using PingPongTask.Interfaces;
 using UnityEngine;
@@ -21,6 +22,12 @@ namespace PingPongTask.Ball
         {
             var x = RandomService.Value() * (RandomService.Range(0, 2) * 2 - 1);
             var y = RandomService.Value() * (RandomService.Range(0, 2) * 2 - 1);
+            
+            while (Math.Abs(x) < 0.1f || Math.Abs(y) < 0.1f)
+            {
+                x = RandomService.Value() * (RandomService.Range(0, 2) * 2 - 1);
+                y = RandomService.Value() * (RandomService.Range(0, 2) * 2 - 1);
+            }
             return new Vector2(x, y).normalized * Speed;
         }
     }

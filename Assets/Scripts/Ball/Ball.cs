@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using PingPongTask.Interfaces;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 
 namespace PingPongTask.Ball
 {
@@ -8,17 +11,31 @@ namespace PingPongTask.Ball
     [RequireComponent(typeof(Collider2D))]
     public class Ball : MonoBehaviour
     {
+        //public IRandomService RandomService { get; set; }
         public float speed = 8f;
-        // Start is called before the first frame update
-        void Start()
+
+        public BallMovement ballMovement;
+        public Vector2 startPosition;
+
+        private Rigidbody2D _rb;
+
+        private void Awake()
         {
-            GetComponent<Rigidbody2D>().velocity = Vector2.down * speed;
+            _rb = GetComponent<Rigidbody2D>();
+            startPosition = transform.position;
         }
 
-        // Update is called once per frame
-        void Update()
+        public void Restart()
         {
+            ResetPosition();
+            _rb.velocity = ballMovement.GetStartingVelocity();
+        }
 
+        public void ResetPosition()
+        {
+            _rb.velocity = Vector2.zero;
+            _rb.angularVelocity = 0;
+            transform.position = startPosition;
         }
     }
 }
