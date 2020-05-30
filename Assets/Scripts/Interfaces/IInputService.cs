@@ -1,6 +1,9 @@
-﻿public interface IInputService
+﻿namespace PingPongTask.Interfaces
 {
-    float GetAxis(string axisName);
-    float GetDeltaTime();
-    
+    public interface IInputService
+    {
+        float GetAxis(string axisName);
+        float GetDeltaTime();
+
+    }
 }

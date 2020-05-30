@@ -6,16 +6,16 @@ namespace PingPongTask.Racket
 {
     public class RacketMovement
     {
-        public float Speed;
+        private readonly float _speed;
 
         public RacketMovement(float speed)
         {
-            Speed = speed;
+            _speed = speed;
         }
 
         public Vector3 CalculateMove(float horizontal, float deltaTime)
         {
-            return new Vector3();
+            return Vector3.right * (_speed * horizontal * deltaTime);
         }
     }
 }

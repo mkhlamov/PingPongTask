@@ -1,27 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using PingPongTask.Interfaces;
 using PingPongTask.Racket;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class Racket : MonoBehaviour
+namespace PingPongTask.Racket
 {
-    public IInputService InputService;
-
-    public float Speed;
-
-    private RacketMovement _racketMovement;
-    
-    // Start is called before the first frame update
-    void Start()
+    public class Racket : MonoBehaviour, IRequireUserInput
     {
-        _racketMovement = new RacketMovement(Speed);
-    }
+        public IInputService InputService { get; set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Translate(_racketMovement.CalculateMove(InputService.GetAxis("Horizontal"), 
-                                                                        InputService.GetDeltaTime()));
+        public float Speed;
+
+        private RacketMovement _racketMovement;
+        private IRequireUserInput _requireUserInputImplementation;
+
+        private void Start()
+        {
+            _racketMovement = new RacketMovement(Speed);
+        }
+
+        private void Update()
+        {
+            transform.Translate(_racketMovement.CalculateMove(InputService.GetAxis("Horizontal"),
+                InputService.GetDeltaTime()));
+        }
     }
 }
