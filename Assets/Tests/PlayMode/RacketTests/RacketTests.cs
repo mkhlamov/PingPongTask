@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
 using PingPongTask.Interfaces;
@@ -7,7 +6,7 @@ using PingPongTask.Racket;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Tests
+namespace Tests.PlayMode.RacketTests
 {
     public class RacketTests
     {

@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 336154901}
   - component: {fileID: 336154902}
   - component: {fileID: 336154903}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WallLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 342476132}
   - component: {fileID: 342476133}
   - component: {fileID: 342476134}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WallRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -777,7 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff224402e505fcc4eabc5943053ddf9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
+  Speed: 5
 --- !u!1 &1608559867
 GameObject:
   m_ObjectHideFlags: 0
