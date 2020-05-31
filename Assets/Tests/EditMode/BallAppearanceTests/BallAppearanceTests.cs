@@ -104,17 +104,6 @@ namespace Tests.EditMode.BallAppearanceTests
 
                 Assert.AreNotEqual(oldSize, _transform.localScale.x);
             }
-            
-            [Test]
-            public void _1_Should_Change_Color()
-            {
-                _image.color = Color.black;
-                var oldColor = _image.color;
-
-                _ballAppearance.SetNewBall();
-
-                Assert.AreNotEqual(oldColor, _image.color);
-            }
         }
     }
 }
