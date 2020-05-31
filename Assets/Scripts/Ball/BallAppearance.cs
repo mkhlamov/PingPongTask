@@ -18,7 +18,8 @@ namespace PingPongTask.Ball
             IRandomService randomService, 
             Transform transform,
             float minSize,
-            float maxSize)
+            float maxSize,
+            string colorStr)
         {
             if (minSize <= 0) throw new ArgumentException("Min size should be greater than 0");
             if (maxSize <= 0) throw new ArgumentException("Max size should be greater than 0");
@@ -29,6 +30,7 @@ namespace PingPongTask.Ball
             _transform = transform;
             _minSize = minSize;
             _maxSize = maxSize;
+            _image.color = ColorUtility.TryParseHtmlString(colorStr, out var color) ? color : Color.white;
         }
 
         public void SetNewBall()

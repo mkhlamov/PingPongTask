@@ -24,7 +24,7 @@ namespace Tests.PlayMode.BallTests
             var randomUnityService = new RandomUnityService();
             _ball.ballMovement = new BallMovement(_ball.speed, randomUnityService, 0.5f, 10f);
             _ball.ballAppearance = new BallAppearance(_ball.GetComponentInChildren<SpriteRenderer>(),
-                randomUnityService, _ball.transform, 0.5f, 2f);
+                randomUnityService, _ball.transform, 0.5f, 2f, "#FFFFFF");
         }
 
         [TearDown]

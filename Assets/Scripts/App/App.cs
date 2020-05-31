@@ -26,6 +26,7 @@ namespace PingPongTask.App
 
         private void Awake()
         {
+            _settingsProvider = new PlayerPrefsSettingProvider();
             CreateBall();
             
             _scoreCounter = new ScoreCounter.ScoreCounter();
@@ -34,8 +35,7 @@ namespace PingPongTask.App
 
             _scoreCounterText = new ScoreCounterText(scoreCounterTextGo);
             _scoreCounter.OnScoreUpdated += _scoreCounterText.UpdateScore;
-
-            _settingsProvider = new PlayerPrefsSettingProvider();
+            
             _bestScoreUpdater = new BestScoreUpdater(_settingsProvider);
             _scoreCounter.OnScoreUpdated += _bestScoreUpdater.UpdateScore;
             _ball.OnBallRestart += _bestScoreUpdater.SaveToDisk;
@@ -55,7 +55,8 @@ namespace PingPongTask.App
                 randomService,
                 _ball.transform,
                 ballData.minSize,
-                ballData.maxSize);
+                ballData.maxSize,
+                _settingsProvider.GetBallColor());
         }
     }
 }

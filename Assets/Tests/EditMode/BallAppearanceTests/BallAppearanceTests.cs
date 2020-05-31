@@ -21,7 +21,8 @@ namespace Tests.EditMode.BallAppearanceTests
             _transform = new GameObject().transform;
             _minSize = 0.2f;
             _maxSize = 2f;
-            _ballAppearance = new BallAppearance(_image, new RandomUnityService(), _transform, _minSize, _maxSize);
+            _ballAppearance = new BallAppearance(_image, new RandomUnityService(), _transform, 
+                _minSize, _maxSize, "#FFFFFF");
         }
         public class BallAppearanceSetColor : BallAppearanceTests
         {
