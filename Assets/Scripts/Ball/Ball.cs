@@ -16,6 +16,7 @@ namespace PingPongTask.Ball
         public BallMovement ballMovement;
         public BallAppearance ballAppearance;
         public Vector2 startPosition;
+        public event Action OnBallHitRacket;
 
         private Rigidbody2D _rb;
         
@@ -36,6 +37,12 @@ namespace PingPongTask.Ball
         private void OnTriggerEnter2D(Collider2D other)
         {
             Restart();
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (!other.gameObject.CompareTag("Racket")) { return; }
+            OnBallHitRacket?.Invoke();
         }
 
         #endregion
