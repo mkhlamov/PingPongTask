@@ -17,6 +17,7 @@ namespace PingPongTask.Ball
         public BallAppearance ballAppearance;
         public Vector2 startPosition;
         public event Action OnBallHitRacket;
+        public event Action OnBallRestart;
 
         private Rigidbody2D _rb;
         
@@ -55,6 +56,7 @@ namespace PingPongTask.Ball
             ballMovement.ResetSpeed();
             _rb.velocity = ballMovement.GetStartingVelocity();
             ballAppearance.SetNewBall();
+            OnBallRestart?.Invoke();
         }
 
         public void ResetPosition()

@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using PingPongTask.Ball;
+﻿using PingPongTask.Ball;
+using PingPongTask.Interfaces;
 using PingPongTask.ScoreCounter;
 using PingPongTask.ScriptableObjects;
+using PingPongTask.SettingsProviders;
 using PingPongTask.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,13 +12,17 @@ namespace PingPongTask.App
 
     public class App : MonoBehaviour
     {
-        [SerializeField] private BallData _ballData; 
-        [SerializeField] private Text _scoreCounterTextGO;
+        [SerializeField] private BallData ballData; 
+        [SerializeField] private Text scoreCounterTextGo;
+        [SerializeField] private Text bestScoreCounterTextGo;
         
         private GameObject _ballGO;
         private Ball.Ball _ball;
         private ScoreCounter.ScoreCounter _scoreCounter;
         private ScoreCounterText _scoreCounterText;
+        private ScoreCounterText _bestScoreCounterText;
+        private BestScoreUpdater _bestScoreUpdater;
+        private ISettingsProvider _settingsProvider;
 
         private void Awake()
         {
@@ -26,9 +30,18 @@ namespace PingPongTask.App
             
             _scoreCounter = new ScoreCounter.ScoreCounter();
             _ball.OnBallHitRacket += _scoreCounter.IncrementScore;
-            
-            _scoreCounterText = new ScoreCounterText(_scoreCounterTextGO);
+            _ball.OnBallRestart += _scoreCounter.ResetScore;
+
+            _scoreCounterText = new ScoreCounterText(scoreCounterTextGo);
             _scoreCounter.OnScoreUpdated += _scoreCounterText.UpdateScore;
+
+            _settingsProvider = new PlayerPrefsSettingProvider();
+            _bestScoreUpdater = new BestScoreUpdater(_settingsProvider);
+            _scoreCounter.OnScoreUpdated += _bestScoreUpdater.UpdateScore;
+            _ball.OnBallRestart += _bestScoreUpdater.SaveToDisk;
+            
+            _bestScoreCounterText = new ScoreCounterText(bestScoreCounterTextGo, _settingsProvider.GetBestScore());
+            _bestScoreUpdater.OnBestScoreUpdated += _bestScoreCounterText.UpdateScore;
         }
 
         private void CreateBall()
@@ -37,12 +50,12 @@ namespace PingPongTask.App
             _ballGO = Instantiate(ballPrefab, Vector3.zero, Quaternion.identity);
             _ball = _ballGO.GetComponent<Ball.Ball>();
             var randomService = new RandomUnityService();
-            _ball.ballMovement = new BallMovement(_ball.speed, randomService, _ballData.minSpeed, _ballData.maxSpeed);
+            _ball.ballMovement = new BallMovement(_ball.speed, randomService, ballData.minSpeed, ballData.maxSpeed);
             _ball.ballAppearance = new BallAppearance(_ball.GetComponentInChildren<SpriteRenderer>(),
                 randomService,
                 _ball.transform,
-                _ballData.minSize,
-                _ballData.maxSize);
+                ballData.minSize,
+                ballData.maxSize);
         }
     }
 }
