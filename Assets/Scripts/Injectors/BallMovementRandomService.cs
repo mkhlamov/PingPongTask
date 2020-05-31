@@ -10,11 +10,19 @@ namespace PingPongTask.Injectors
     public class BallMovementRandomService : MonoBehaviour
     {
         [SerializeField] private GameObject ball;
+        [SerializeField] private float minSize;
+        [SerializeField] private float maxSize;
 
         private void Awake()
         {
             var ballComponent = ball.GetComponent<Ball.Ball>();
-            ballComponent.ballMovement = new BallMovement(ballComponent.speed, new RandomUnityService());
+            var randomService = new RandomUnityService();
+            ballComponent.ballMovement = new BallMovement(ballComponent.speed, randomService);
+            ballComponent.ballAppearance = new BallAppearance(ballComponent.GetComponentInChildren<SpriteRenderer>(),
+                randomService,
+                ballComponent.transform,
+                minSize,
+                maxSize);
         }
     }
 }

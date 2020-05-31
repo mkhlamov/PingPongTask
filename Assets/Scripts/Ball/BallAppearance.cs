@@ -9,22 +9,32 @@ namespace PingPongTask.Ball
     {
         public IRandomService RandomService { get; set; }
         
-        private readonly Image _image;
+        private readonly SpriteRenderer _image;
         private readonly Transform _transform;
         private float _minSize;
         private float _maxSize;
 
-        public BallAppearance(Image image, 
+        public BallAppearance(SpriteRenderer image, 
             IRandomService randomService, 
             Transform transform,
             float minSize,
             float maxSize)
         {
+            if (minSize == 0) throw new ArgumentException("Min size should be greater than 0");
+            if (maxSize == 0) throw new ArgumentException("Max size should be greater than 0");
+            if (minSize >= maxSize) throw new ArgumentException("Max size should be greater than min size");
+            
             _image = image;
             RandomService = randomService;
             _transform = transform;
             _minSize = minSize;
             _maxSize = maxSize;
+        }
+
+        public void SetNewBall()
+        {
+            SetDifferentColor();
+            SetDifferentSize();
         }
 
         public void SetColor(Color color)

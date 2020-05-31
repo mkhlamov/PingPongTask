@@ -11,13 +11,14 @@ namespace PingPongTask.Ball
     [RequireComponent(typeof(Collider2D))]
     public class Ball : MonoBehaviour
     {
-        //public IRandomService RandomService { get; set; }
         public float speed = 8f;
-
+        
         public BallMovement ballMovement;
+        public BallAppearance ballAppearance;
         public Vector2 startPosition;
 
         private Rigidbody2D _rb;
+        
 
         #region Monobehavoiur methods
         
@@ -45,6 +46,7 @@ namespace PingPongTask.Ball
         {
             ResetPosition();
             _rb.velocity = ballMovement.GetStartingVelocity();
+            ballAppearance.SetNewBall();
         }
 
         public void ResetPosition()

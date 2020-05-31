@@ -8,7 +8,7 @@ namespace Tests.EditMode.BallAppearanceTests
 {
     public class BallAppearanceTests
     {
-        private Image _image;
+        private SpriteRenderer _image;
         private Transform _transform;
         private BallAppearance _ballAppearance;
         private float _minSize;
@@ -17,7 +17,7 @@ namespace Tests.EditMode.BallAppearanceTests
         [SetUp]
         public void BeforeEachTest()
         {
-            _image = new GameObject().AddComponent<Image>();
+            _image = new GameObject().AddComponent<SpriteRenderer>();
             _transform = new GameObject().transform;
             _minSize = 0.2f;
             _maxSize = 2f;
@@ -90,6 +90,30 @@ namespace Tests.EditMode.BallAppearanceTests
                 _ballAppearance.SetDifferentSize();
 
                 Assert.AreNotEqual(oldSize, _transform.localScale.x);
+            }
+        }
+        
+        public class BallAppearanceSetNewBall : BallAppearanceTests
+        {
+            [Test]
+            public void _0_Should_Change_Size()
+            {
+                var oldSize = _transform.localScale.x;
+
+                _ballAppearance.SetNewBall();
+
+                Assert.AreNotEqual(oldSize, _transform.localScale.x);
+            }
+            
+            [Test]
+            public void _1_Should_Change_Color()
+            {
+                _image.color = Color.black;
+                var oldColor = _image.color;
+
+                _ballAppearance.SetNewBall();
+
+                Assert.AreNotEqual(oldColor, _image.color);
             }
         }
     }
