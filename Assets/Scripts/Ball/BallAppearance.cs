@@ -20,8 +20,8 @@ namespace PingPongTask.Ball
             float minSize,
             float maxSize)
         {
-            if (minSize == 0) throw new ArgumentException("Min size should be greater than 0");
-            if (maxSize == 0) throw new ArgumentException("Max size should be greater than 0");
+            if (minSize <= 0) throw new ArgumentException("Min size should be greater than 0");
+            if (maxSize <= 0) throw new ArgumentException("Max size should be greater than 0");
             if (minSize >= maxSize) throw new ArgumentException("Max size should be greater than min size");
             
             _image = image;
@@ -33,7 +33,6 @@ namespace PingPongTask.Ball
 
         public void SetNewBall()
         {
-            SetDifferentColor();
             SetDifferentSize();
         }
 

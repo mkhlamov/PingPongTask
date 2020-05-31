@@ -45,6 +45,7 @@ namespace PingPongTask.Ball
         public void Restart()
         {
             ResetPosition();
+            ballMovement.ResetSpeed();
             _rb.velocity = ballMovement.GetStartingVelocity();
             ballAppearance.SetNewBall();
         }

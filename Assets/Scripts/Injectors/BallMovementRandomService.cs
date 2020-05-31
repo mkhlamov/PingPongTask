@@ -12,12 +12,14 @@ namespace PingPongTask.Injectors
         [SerializeField] private GameObject ball;
         [SerializeField] private float minSize;
         [SerializeField] private float maxSize;
+        [SerializeField] private float minSpeed;
+        [SerializeField] private float maxSpeed;
 
         private void Awake()
         {
             var ballComponent = ball.GetComponent<Ball.Ball>();
             var randomService = new RandomUnityService();
-            ballComponent.ballMovement = new BallMovement(ballComponent.speed, randomService);
+            ballComponent.ballMovement = new BallMovement(ballComponent.speed, randomService, minSpeed, maxSpeed);
             ballComponent.ballAppearance = new BallAppearance(ballComponent.GetComponentInChildren<SpriteRenderer>(),
                 randomService,
                 ballComponent.transform,

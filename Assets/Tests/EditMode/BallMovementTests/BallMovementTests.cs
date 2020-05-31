@@ -10,18 +10,20 @@ namespace Tests.EditMode.BallMovementTests
 {
     public class BallMovementTests
     {
+        private BallMovement _ballMovement;
+        private const float Speed = 5f;
+        private const float MinSpeed = 0.5f;
+        private const float MaxSpeed = 10f;
+        
+        [SetUp]
+        public void BeforeEachTest()
+        {
+            _ballMovement = new BallMovement(Speed, Substitute.For<IRandomService>(), MinSpeed, MaxSpeed);
+            _ballMovement.RandomService.Value().ReturnsForAnyArgs(2);
+        }
+        
         public class BallMovementGetStartingVelocity : BallMovementTests
         {
-            private BallMovement _ballMovement;
-            private const float Speed = 5f;
-
-            [SetUp]
-            public void BeforeEachTest()
-            {
-                _ballMovement = new BallMovement(Speed, Substitute.For<IRandomService>());
-                _ballMovement.RandomService.Value().ReturnsForAnyArgs(2);
-            }
-
             [Test]
             public void _0_Sets_Positive_Horizontal()
             {
@@ -70,6 +72,20 @@ namespace Tests.EditMode.BallMovementTests
                 var magn = _ballMovement.GetStartingVelocity().magnitude;
                 
                 Assert.AreEqual(Speed, magn);
+            }
+        }
+        
+        public class BallMovementResetSpeed : BallMovementTests
+        {
+            [Test]
+            public void _0_Sets_New_Speed()
+            {
+                var newSpeed = Speed + 1;
+                _ballMovement.RandomService.Range(0f, 0f).ReturnsForAnyArgs(newSpeed);
+
+                _ballMovement.ResetSpeed();
+                
+                Assert.AreNotEqual(Speed, _ballMovement.Speed);
             }
         }
     }

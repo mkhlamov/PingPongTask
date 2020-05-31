@@ -10,12 +10,21 @@ namespace PingPongTask.Ball
     {
         public float Speed;
 
+        private float _minSpeed;
+        private float _maxSpeed;
+
         public IRandomService RandomService { get; set; }
 
-        public BallMovement(float speed, IRandomService randomService)
+        public BallMovement(float speed, IRandomService randomService, float minSpeed, float maxSpeed)
         {
+            if (minSpeed <= 0) throw new ArgumentException("Min speed should be greater than 0");
+            if (maxSpeed <= 0) throw new ArgumentException("Max speed should be greater than 0");
+            if (minSpeed >= maxSpeed) throw new ArgumentException("Max speed should be greater than min size");
+            
             Speed = speed;
             RandomService = randomService;
+            _minSpeed = minSpeed;
+            _maxSpeed = maxSpeed;
         }
 
         public Vector2 GetStartingVelocity()
@@ -29,6 +38,18 @@ namespace PingPongTask.Ball
                 y = RandomService.Value() * (RandomService.Range(0, 2) * 2 - 1);
             }
             return new Vector2(x, y).normalized * Speed;
+        }
+
+        public void ResetSpeed()
+        {
+            var oldSpeed = Speed;
+            var newSpeed = RandomService.Range(_minSpeed, _maxSpeed);
+            while (newSpeed == oldSpeed)
+            {
+                newSpeed = RandomService.Range(_minSpeed, _maxSpeed);
+            }
+
+            Speed = newSpeed;
         }
     }
 }

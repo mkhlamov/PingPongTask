@@ -21,7 +21,10 @@ namespace Tests.PlayMode.BallTests
             _startPosition = Vector2.zero;
             _ballGO = Object.Instantiate(prefab, _startPosition, Quaternion.identity) as GameObject;
             _ball = _ballGO.GetComponent<Ball>();
-            _ball.ballMovement = new BallMovement(_ball.speed, new RandomUnityService());
+            var randomUnityService = new RandomUnityService();
+            _ball.ballMovement = new BallMovement(_ball.speed, randomUnityService, 0.5f, 10f);
+            _ball.ballAppearance = new BallAppearance(_ball.GetComponentInChildren<SpriteRenderer>(),
+                randomUnityService, _ball.transform, 0.5f, 2f);
         }
 
         [TearDown]
@@ -41,6 +44,32 @@ namespace Tests.PlayMode.BallTests
                 _ball.Restart();
                 yield return new WaitForFixedUpdate();
                 Assert.Greater(rb.velocity.magnitude, 0);
+            }
+            
+            [UnityTest]
+            public IEnumerator _1_Should_Have_New_Speed()
+            {
+                var rb = _ballGO.GetComponent<Rigidbody2D>();
+                yield return new WaitForFixedUpdate();
+                _ball.Restart();
+                yield return new WaitForFixedUpdate();
+                var oldSpeed = rb.velocity.magnitude;
+                _ball.Restart();
+                yield return new WaitForFixedUpdate();
+                Assert.AreNotEqual(oldSpeed, rb.velocity.magnitude);
+            }
+            
+            [UnityTest]
+            public IEnumerator _2_Should_Have_New_Size()
+            {
+                var rb = _ballGO.GetComponent<Rigidbody2D>();
+                yield return new WaitForFixedUpdate();
+                _ball.Restart();
+                yield return new WaitForFixedUpdate();
+                var oldSize = _ball.transform.localScale.x;
+                _ball.Restart();
+                yield return new WaitForFixedUpdate();
+                Assert.AreNotEqual(oldSize, _ball.transform.localScale.x);
             }
         }
 
