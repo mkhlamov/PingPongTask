@@ -14,5 +14,10 @@ namespace PingPongTask.Utils
         {
             return Random.Range(min, max);
         }
+
+        public string Color()
+        {
+            return "#" + ColorUtility.ToHtmlStringRGBA(Random.ColorHSV());
+        }
     }
 }
