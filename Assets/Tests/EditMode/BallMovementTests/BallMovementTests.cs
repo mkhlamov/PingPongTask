@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NSubstitute;
+﻿using NSubstitute;
 using NUnit.Framework;
 using PingPongTask.Ball;
 using PingPongTask.Interfaces;

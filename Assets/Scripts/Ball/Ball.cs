@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using PingPongTask.Interfaces;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
 
 namespace PingPongTask.Ball
 {
@@ -36,6 +32,11 @@ namespace PingPongTask.Ball
         }
 
         private void Update()
+        {
+            Move();
+        }
+
+        protected virtual void Move()
         {
             _rb.velocity = ballMovement.GetVelocity();
         }

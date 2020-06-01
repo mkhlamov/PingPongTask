@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using PingPongTask.Interfaces;
+﻿using PingPongTask.Interfaces;
 using UnityEngine;
 
 namespace PingPongTask.SettingsProviders

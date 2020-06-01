@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using PingPongTask.Settings;
 using PingPongTask.SettingsProviders;
 using UnityEngine;
 using UnityEngine.UI;
-using Debug = System.Diagnostics.Debug;
 
 namespace PingPongTask.Injectors
 {

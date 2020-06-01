@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using PingPongTask.Interfaces;
-using UnityEngine;
 
 namespace PingPongTask.ScoreCounter
 {

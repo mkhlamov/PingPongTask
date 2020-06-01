@@ -15,26 +15,26 @@ namespace PingPongTask.App
 
     public class App : MonoBehaviour
     {
-        [SerializeField] private BallData ballData;
+        [SerializeField] protected BallData ballData;
         [SerializeField] private Transform ballStartPosition;
-        [SerializeField] private List<Transform> racketsStartPositions;
+        [SerializeField] protected List<Transform> racketsStartPositions;
         [SerializeField] private Text scoreCounterTextGo;
         [SerializeField] private Text bestScoreCounterTextGo;
         
-        private GameObject _ballGO;
-        private Ball.Ball _ball;
-        private List<GameObject> _rackets;
+        protected GameObject _ballGO;
+        protected Ball.Ball _ball;
+        protected List<GameObject> _rackets = new List<GameObject>();
         private ScoreCounter.ScoreCounter _scoreCounter;
         private ScoreCounterText _scoreCounterText;
         private ScoreCounterText _bestScoreCounterText;
         private BestScoreUpdater _bestScoreUpdater;
-        private ISettingsProvider _settingsProvider;
-        private IInputService _inputService;
+        protected ISettingsProvider _settingsProvider;
+        protected IInputService _inputService;
 
         private void Awake()
         {
             _settingsProvider = new PlayerPrefsSettingProvider();
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_STANDALONE
             _inputService = new KeyboardInput();
 #elif (UNITY_ANDROID || UNITY_IOS)
             _inputService = new MobileInput();
@@ -57,9 +57,9 @@ namespace PingPongTask.App
             _bestScoreUpdater.OnBestScoreUpdated += _bestScoreCounterText.UpdateScore;
         }
 
-        private void CreateBall()
+        protected virtual void CreateBall()
         {
-            var ballPrefab = Resources.Load("Prefabs/Ball") as GameObject;
+            var ballPrefab = GetBallPrefab();
             _ballGO = Instantiate(ballPrefab, ballStartPosition.position, Quaternion.identity);
             _ball = _ballGO.GetComponent<Ball.Ball>();
             var randomService = new RandomUnityService();
@@ -71,17 +71,26 @@ namespace PingPongTask.App
                 ballData.maxSize,
                 _settingsProvider.GetBallColor());
         }
-        
-        private void CreateRackets()
+
+        protected virtual GameObject GetBallPrefab()
         {
-            _rackets = new List<GameObject>();
+            return Resources.Load("Prefabs/Ball") as GameObject;
+        }
+
+        protected virtual void CreateRackets()
+        {
             var prefab = Resources.Load("Prefabs/Racket") as GameObject;
             foreach (var racketPos in racketsStartPositions)
             {
                 var go = Instantiate(prefab, racketPos.position, Quaternion.identity);
                 _rackets.Add(go);
             }
-            
+
+            SetupRackets();
+        }
+
+        protected void SetupRackets()
+        {
             var components = new List<MonoBehaviour>();
             foreach (var racket in _rackets)
             {

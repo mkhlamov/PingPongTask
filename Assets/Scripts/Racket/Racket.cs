@@ -1,5 +1,4 @@
 ﻿using PingPongTask.Interfaces;
-using PingPongTask.Racket;
 using UnityEngine;
 
 namespace PingPongTask.Racket
@@ -23,11 +22,16 @@ namespace PingPongTask.Racket
 
         private void Update()
         {
+            Move();
+        }
+
+        protected virtual void Move()
+        {
             var axisValue = InputService.GetAxis("Horizontal");
 #if !UNITY_EDITOR && (UNITY_ANDROID || UNITY_IOS)
             axisValue *= mobileInputMultiplier;
 #endif
-            transform.position = _racketMovement.CalculateMove(transform.position, 
+            transform.position = _racketMovement.CalculateMove(transform.position,
                 axisValue,
                 InputService.GetDeltaTime());
         }

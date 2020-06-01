@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using PingPongTask.ScoreCounter;
 using UnityEngine;
 using UnityEngine.UI;

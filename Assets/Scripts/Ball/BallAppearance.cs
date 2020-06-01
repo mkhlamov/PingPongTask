@@ -1,7 +1,6 @@
 ﻿using System;
 using PingPongTask.Interfaces;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PingPongTask.Ball
 {
@@ -33,7 +32,7 @@ namespace PingPongTask.Ball
             _image.color = ColorUtility.TryParseHtmlString(colorStr, out var color) ? color : Color.white;
         }
 
-        public void SetNewBall()
+        public virtual void SetNewBall()
         {
             SetDifferentSize();
         }

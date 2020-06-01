@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using PingPongTask.Interfaces;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace PingPongTask.ScoreCounter
 {

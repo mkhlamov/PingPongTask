@@ -2,7 +2,6 @@
 using PingPongTask.Ball;
 using PingPongTask.Utils;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Tests.EditMode.BallAppearanceTests
 {

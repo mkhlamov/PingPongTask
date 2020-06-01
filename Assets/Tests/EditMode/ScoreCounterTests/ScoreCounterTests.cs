@@ -1,11 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework;
-using PingPongTask.Ball;
+﻿using NUnit.Framework;
 using PingPongTask.ScoreCounter;
-using PingPongTask.Utils;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Tests.EditMode.ScoreCounterTests
 {
