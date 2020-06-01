@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1367b81c061638b4ba9d2382e6d58f63, type: 3}
   m_Name: Default ball
   m_EditorClassIdentifier: 
-  minSize: 0.2
+  minSize: 0.35
   maxSize: 1.8
-  minSpeed: 1
+  minSpeed: 2
   maxSpeed: 4

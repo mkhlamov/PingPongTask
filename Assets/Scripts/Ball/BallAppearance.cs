@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 namespace PingPongTask.Ball
 {
-    public class BallAppearance : IRequireRandom
+    public class BallAppearance
     {
-        public IRandomService RandomService { get; set; }
+        private readonly IRandomService _randomService;
         
         private readonly SpriteRenderer _image;
         private readonly Transform _transform;
@@ -26,7 +26,7 @@ namespace PingPongTask.Ball
             if (minSize >= maxSize) throw new ArgumentException("Max size should be greater than min size");
             
             _image = image;
-            RandomService = randomService;
+            _randomService = randomService;
             _transform = transform;
             _minSize = minSize;
             _maxSize = maxSize;
@@ -64,17 +64,17 @@ namespace PingPongTask.Ball
         public void SetDifferentSize()
         {
             var oldSize = _transform.localScale.x;
-            var newSize = RandomService.Range(_minSize, _maxSize);
+            var newSize = _randomService.Range(_minSize, _maxSize);
             while (newSize == oldSize)
             {
-                newSize = RandomService.Range(_minSize, _maxSize);
+                newSize = _randomService.Range(_minSize, _maxSize);
             }
             SetSize(newSize);
         }
 
         private Color GetRandomColor()
         {
-            var newColorStr = RandomService.Color();
+            var newColorStr = _randomService.Color();
             if (ColorUtility.TryParseHtmlString(newColorStr, out var newColor))
             {
                 return newColor;

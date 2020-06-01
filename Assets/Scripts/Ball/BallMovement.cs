@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using PingPongTask.Interfaces;
 using UnityEngine;
 
 namespace PingPongTask.Ball
 {
-    public class BallMovement : IRequireRandom
+    public class BallMovement
     {
         public float Speed;
 
         private float _minSpeed;
         private float _maxSpeed;
+        private Vector2 _velocity;
 
-        public IRandomService RandomService { get; set; }
+        public readonly IRandomService RandomService;
 
         public BallMovement(float speed, IRandomService randomService, float minSpeed, float maxSpeed)
         {
@@ -37,7 +39,9 @@ namespace PingPongTask.Ball
                 x = RandomService.Value() * (RandomService.Range(0, 2) * 2 - 1);
                 y = RandomService.Value() * (RandomService.Range(0, 2) * 2 - 1);
             }
-            return new Vector2(x, y).normalized * Speed;
+
+            _velocity = new Vector2(x, y).normalized * Speed;
+            return _velocity;
         }
 
         public void ResetSpeed()
@@ -50,6 +54,23 @@ namespace PingPongTask.Ball
             }
 
             Speed = newSpeed;
+        }
+
+        public void CollidedWithRacket(Vector2 ballPos, Vector2 racketPos, float racketWidth)
+        {
+            var x = (ballPos.x - racketPos.x) / (racketWidth / 2f);
+            var newDirection = new Vector2(x, -_velocity.y).normalized;
+            _velocity = newDirection * Speed;
+        }
+
+        public void CollidedWithWall()
+        {
+            _velocity = new Vector2(-_velocity.x, _velocity.y);
+        }
+
+        public Vector2 GetVelocity()
+        {
+            return _velocity;
         }
     }
 }

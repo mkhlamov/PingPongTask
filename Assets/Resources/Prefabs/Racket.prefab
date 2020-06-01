@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 5
-  mobileInputMultiplier: 25
+  mobileInputMultiplier: 50
 --- !u!1 &537927340417864598
 GameObject:
   m_ObjectHideFlags: 0

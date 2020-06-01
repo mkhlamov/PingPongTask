@@ -35,6 +35,11 @@ namespace PingPongTask.Ball
             Restart();
         }
 
+        private void Update()
+        {
+            _rb.velocity = ballMovement.GetVelocity();
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             Restart();
@@ -42,8 +47,19 @@ namespace PingPongTask.Ball
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (!other.gameObject.CompareTag("Racket")) { return; }
-            OnBallHitRacket?.Invoke();
+            if (other.gameObject.CompareTag("Racket"))
+            {
+                //bounce angle
+                ballMovement.CollidedWithRacket(transform.position,
+                    other.transform.position, other.collider.bounds.size.x);
+                _rb.velocity = ballMovement.GetVelocity();
+                OnBallHitRacket?.Invoke();
+            }
+            else if (other.gameObject.CompareTag("Wall"))
+            {
+                ballMovement.CollidedWithWall();
+                _rb.velocity = ballMovement.GetVelocity();
+            }
         }
 
         #endregion
