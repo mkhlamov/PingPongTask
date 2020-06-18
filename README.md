@@ -1,2 +1,2 @@
 # PingPongTask
-Ping Pong game for Beresnev Games
+Ping Pong game
